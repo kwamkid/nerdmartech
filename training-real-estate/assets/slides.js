@@ -23,3 +23,20 @@
  var x0=null;addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
  addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40)go(i+(d<0?1:-1));x0=null});
 })();
+
+/* QR: any [data-qr] gets a QR code. data-qr="" = this deck's own link */
+(function(){
+ var els=document.querySelectorAll('[data-qr]'); if(!els.length) return;
+ function draw(){
+  els.forEach(function(el){
+   var url=el.getAttribute('data-qr')||(location.origin+location.pathname);
+   try{var q=qrcode(0,'M');q.addData(url);q.make();
+    el.innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true});}catch(e){el.textContent=url}
+  });
+ }
+ if(window.qrcode){draw();return}
+ var sc=document.createElement('script');
+ sc.src='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+ sc.onload=draw; sc.onerror=function(){els.forEach(function(el){el.textContent=el.getAttribute('data-qr')||location.href})};
+ document.head.appendChild(sc);
+})();
