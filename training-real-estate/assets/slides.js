@@ -70,7 +70,10 @@
 /* PDF: Safari ignores the 16:9 page size -> tell the user to use Chrome */
 window.slidesPrint=function(){
  var ua=navigator.userAgent,isSafari=/Safari/.test(ua)&&!/Chrome|Chromium|CriOS|Edg|OPR|Firefox/.test(ua);
- if(!isSafari){window.print();return}
+ if(!isSafari){
+  var t=document.createElement('div');t.className='pdftoast';
+  t.innerHTML='ในหน้าต่างพิมพ์ ช่อง <b>Destination</b> เลือก <b>Save as PDF</b> · ถ้าเลือกเครื่องพิมพ์จะได้ A4 มีขอบขาว';
+  document.body.appendChild(t);setTimeout(function(){window.print();setTimeout(function(){t.remove()},4000)},350);return}
  var o=document.createElement('div');o.className='pdfhint';
  o.innerHTML='<div class="box"><h3>Safari ทำ PDF 16:9 ไม่ได้</h3><p>Safari จะออกเป็นกระดาษ A4 มีขอบขาว ให้เปิดหน้านี้ใน Google Chrome แล้วกดปุ่มนี้อีกครั้ง จะได้ PDF แนวนอน 16:9 พอดีจอ projector</p><div class="bt"><button class="no" type="button">พิมพ์แบบ A4 ต่อ</button><button class="ok" type="button">เข้าใจแล้ว</button></div></div>';
  o.querySelector('.no').onclick=function(){o.remove();window.print()};

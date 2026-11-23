@@ -225,3 +225,7 @@ body.all .strip,body.all .striptab{display:none}
 .pdfhint button{font:700 15px var(--font);border:0;padding:9px 16px;cursor:pointer;clip-path:var(--pxc)}
 .pdfhint .ok{background:var(--accent);color:#fff}.pdfhint .no{background:#efece6;color:var(--text)}
 @media print{.pdfhint{display:none!important}}
+
+.pdftoast{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:21;background:#1c1c1c;color:#f9f8f6;font:500 16px var(--font);padding:12px 18px;border-radius:12px;box-shadow:0 12px 30px -12px rgba(0,0,0,.5);max-width:calc(100% - 32px)}
+.pdftoast b{color:#ff8a78}
+@media print{.pdftoast{display:none!important}}
