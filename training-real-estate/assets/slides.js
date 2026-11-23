@@ -84,8 +84,8 @@ window.slidesPrint=function(){
 /* copy buttons on slides */
 document.addEventListener('click',function(e){
  var b=e.target.closest('.cpy');if(!b)return;e.stopPropagation();
- var t=b.getAttribute('data-copy'),old=b.textContent;
- function done(){b.textContent='คัดลอกแล้ว ✓';b.classList.add('ok');setTimeout(function(){b.textContent=old;b.classList.remove('ok')},1500)}
+ var t=b.getAttribute('data-copy'),old=b.innerHTML,ic=b.classList.contains('ic');
+ function done(){if(ic)b.innerHTML='<svg><use href="#i-pass"/></svg>';else b.textContent='คัดลอกแล้ว ✓';b.classList.add('ok');setTimeout(function(){b.innerHTML=old;b.classList.remove('ok')},1500)}
  function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch(x){}a.remove()}
  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(done,fb)}else fb();
 },true);
