@@ -45,7 +45,7 @@
  });
  document.getElementById('deck').addEventListener('click',function(e){
   var s=e.target.closest('.slide');if(document.body.classList.contains('all')&&s){document.body.classList.remove('all');go(slides.indexOf(s));return}
-  if(e.target.closest('a'))return; if(e.clientX>innerWidth/3)go(i+1);else go(i-1)});
+  if(e.target.closest('a,button'))return; if(e.clientX>innerWidth/3)go(i+1);else go(i-1)});
  var x0=null;addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
  addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40)go(i+(d<0?1:-1));x0=null});
 })();
@@ -80,3 +80,12 @@ window.slidesPrint=function(){
  o.querySelector('.ok').onclick=function(){o.remove()};
  document.body.appendChild(o);
 };
+
+/* copy buttons on slides */
+document.addEventListener('click',function(e){
+ var b=e.target.closest('.cpy');if(!b)return;e.stopPropagation();
+ var t=b.getAttribute('data-copy'),old=b.textContent;
+ function done(){b.textContent='คัดลอกแล้ว ✓';b.classList.add('ok');setTimeout(function(){b.textContent=old;b.classList.remove('ok')},1500)}
+ function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch(x){}a.remove()}
+ if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(done,fb)}else fb();
+},true);
