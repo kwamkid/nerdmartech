@@ -165,9 +165,9 @@ p{margin:0}
 body:hover .help{opacity:1}
 /* overview (press G) / print-all (?all) */
 body.all{overflow:auto;background:#1c1c1c}
-body.all .stage{position:static;display:block;padding:40px 32px 120px}
-body.all .deck{transform:none;width:auto;height:auto;display:grid;grid-template-columns:repeat(auto-fill,400px);justify-content:center;gap:28px}
-body.all .slide{position:relative;inset:auto;width:1280px;height:720px;opacity:1;visibility:visible;transform:scale(.3125);transform-origin:top left;margin-bottom:calc(720px * -0.6875);margin-right:calc(1280px * -0.6875);cursor:pointer;border-radius:10px;overflow:hidden;box-shadow:0 0 0 3px rgba(255,255,255,.06),0 20px 50px -20px rgba(0,0,0,.8)}
+body.all .stage{position:static;display:block;padding:32px 32px 120px}
+body.all .deck{transform:none;width:auto;height:auto;display:grid;grid-template-columns:repeat(var(--gc,3),1fr);gap:24px}
+body.all .slide{position:relative;inset:auto;width:1280px;height:720px;opacity:1;visibility:visible;transform:scale(var(--ts,.3125));transform-origin:top left;margin-bottom:calc(720px * (var(--ts,.3125) - 1));margin-right:calc(1280px * (var(--ts,.3125) - 1));cursor:pointer;border-radius:10px;overflow:hidden;box-shadow:0 0 0 3px rgba(255,255,255,.06),0 20px 50px -20px rgba(0,0,0,.8)}
 body.all .slide:hover{box-shadow:0 0 0 6px var(--accent),0 20px 50px -20px rgba(0,0,0,.8)}
 body.all .hud,body.all .help{display:none}
 body.print .slide{transform:none;margin:0 0 24px}
@@ -270,3 +270,11 @@ body.all .hubbtn,body.print .hubbtn{display:none}
 .strip .bar .hubbtn,.strip .bar .pdfbtn{position:static;opacity:1;transform:none;right:auto;left:auto;top:auto}
 .strip .bar .hubbtn{background:transparent;color:#e8e3da;border:1px solid rgba(255,255,255,.3);clip-path:none;border-radius:8px;padding:7px 14px}
 .strip .bar .hubbtn:hover{color:#fff;border-color:#fff}
+
+/* slide number in the overview */
+.slide .tn{display:none}
+body.all .slide .tn{display:grid;place-items:center;position:absolute;right:24px;bottom:24px;z-index:60;min-width:84px;height:64px;padding:0 18px;font:700 40px var(--lab);color:#fff;background:rgba(17,17,17,.82);border-radius:14px}
+body.all .slide:hover .tn{background:var(--accent)}
+.strip .tn{display:none!important}
+body.print .slide .tn{display:none!important}
+@media print{.slide .tn{display:none!important}}

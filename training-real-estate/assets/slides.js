@@ -5,7 +5,12 @@
  function go(k){i=Math.max(0,Math.min(n-1,k));slides.forEach(function(s,j){s.classList.toggle('on',j===i)});
   document.getElementById('bar').style.width=((i+1)/n*100)+'%';try{history.replaceState(null,'','#'+(i+1))}catch(e){}
   if(window.__strip)window.__strip(i)}
- addEventListener('resize',fit);fit();
+ /* overview grid (G): fill the full width, number every slide */
+ function grid(){var W=document.documentElement.clientWidth,pad=32,gap=24,min=340;
+  var cols=Math.max(1,Math.floor((W-pad*2+gap)/(min+gap))),cw=(W-pad*2-gap*(cols-1))/cols,r=document.documentElement.style;
+  r.setProperty('--gc',cols);r.setProperty('--ts',cw/1280)}
+ slides.forEach(function(s,k){var t=document.createElement('span');t.className='tn';t.textContent=k+1;s.appendChild(t)});
+ addEventListener('resize',function(){fit();grid()});fit();grid();
  /* thumbnail strip */
  (function(){
   var strip=document.createElement('div');strip.className='strip';
