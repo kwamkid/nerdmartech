@@ -23,10 +23,13 @@
    var nb=document.createElement('span');nb.className='n';nb.textContent=k+1;b.appendChild(nb);
    b.addEventListener('click',function(e){e.stopPropagation();go(k)});
    row.appendChild(b);return b;});
+  /* hub + PDF buttons ride on top of the thumbnail strip */
+  var bar=document.createElement('div');bar.className='bar';strip.insertBefore(bar,row);
+  ['hubbtn','pdfbtn'].forEach(function(c){var el=document.querySelector('body > .'+c);if(el){el.addEventListener('click',function(e){e.stopPropagation()});bar.appendChild(el)}});
   document.body.appendChild(strip);document.body.appendChild(tab);
   function pin(v){document.body.classList.toggle('strip-pin',v===undefined?!document.body.classList.contains('strip-pin'):v)}
   tab.addEventListener('click',function(e){e.stopPropagation();pin()});
-  addEventListener('mousemove',function(e){document.body.classList.toggle('strip-peek',e.clientY>innerHeight-130)});
+  addEventListener('mousemove',function(e){var on=document.body.classList.contains('strip-peek');document.body.classList.toggle('strip-peek',e.clientY>innerHeight-(on?strip.offsetHeight+20:130))});
   addEventListener('keydown',function(e){if((e.key==='t'||e.key==='T')&&!document.body.classList.contains('all'))pin()});
   window.__strip=function(k){thumbs.forEach(function(b,j){b.classList.toggle('cur',j===k)});
    var b=thumbs[k];if(b)row.scrollTo({left:b.offsetLeft-row.clientWidth/2+b.clientWidth/2,behavior:'smooth'})};
@@ -38,7 +41,6 @@
   if(document.body.classList.contains('all')&&e.key!=='g'&&e.key!=='G'&&e.key!=='Escape')return;
   if(['ArrowRight','PageDown',' ','Enter'].indexOf(e.key)>-1){e.preventDefault();go(i+1)}
   else if(['ArrowLeft','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();go(i-1)}
-  else if(e.key==='p'||e.key==='P'){e.preventDefault();(window.slidesPrint||window.print)()}
   else if(e.key==='Home')go(0);else if(e.key==='End')go(n-1);
   else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(function(){});else document.exitFullscreen()}
   else if(e.key==='g'||e.key==='G'||e.key==='Escape'){document.body.classList.toggle('all',e.key!=='Escape'?undefined:false)}
