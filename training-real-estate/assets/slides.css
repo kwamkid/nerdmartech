@@ -255,3 +255,9 @@ body.all .strip,body.all .striptab{display:none}
 .navz svg{width:46px;height:46px;fill:none;stroke:var(--accent);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 body.all .navz,body.print .navz{display:none}
 @media print{.navz{display:none}}
+
+/* back to the course hub, beside the PDF button */
+.hubbtn{position:fixed;right:190px;top:14px;z-index:6;display:inline-flex;align-items:center;font:700 14px var(--font);color:var(--text);background:#fff;border:1px solid var(--line);padding:8px 14px;text-decoration:none;clip-path:var(--pxc);opacity:.9}
+.hubbtn:hover{color:var(--accent-ink);opacity:1}
+body.all .hubbtn,body.print .hubbtn{display:none}
+@media print{.hubbtn{display:none!important}}
