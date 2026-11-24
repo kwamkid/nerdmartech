@@ -50,7 +50,13 @@
   /* only the edge strips change slides, so text can be selected and copied */});
  ['l','r'].forEach(function(d){var z=document.createElement('div');z.className='navz '+d;z.setAttribute('aria-hidden','true');
   z.innerHTML='<svg viewBox="0 0 24 24"><path d="'+(d==='l'?'M15 5l-7 7 7 7':'M9 5l7 7-7 7')+'"/></svg>';
-  z.addEventListener('click',function(e){e.stopPropagation();go(i+(d==='l'?-1:1))});document.body.appendChild(z)});
+  document.body.appendChild(z)});
+ /* edge zones never cover anything clickable: buttons, links and prompt boxes always win */
+ var LIVE='a,button,input,textarea,select,.say,.cb,.codes,.strip,.striptab,.hubbtn,.pdfbtn';
+ function edge(e){if(document.body.classList.contains('all'))return 0;var w=innerWidth*0.09;
+  if(e.target.closest&&e.target.closest(LIVE))return 0;return e.clientX<w?-1:e.clientX>innerWidth-w?1:0}
+ addEventListener('mousemove',function(e){var d=edge(e);document.body.classList.toggle('nav-l',d===-1);document.body.classList.toggle('nav-r',d===1)});
+ addEventListener('click',function(e){var d=edge(e);if(!d||String(getSelection()).length)return;go(i+d)});
  var x0=null;addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
  addEventListener('touchend',function(e){if(x0===null)return;if(String(getSelection()).length){x0=null;return}var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40)go(i+(d<0?1:-1));x0=null});
 })();

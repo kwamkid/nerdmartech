@@ -76,7 +76,7 @@ p{margin:0}
 .topic .vis{position:absolute;right:44px;bottom:-50px;width:700px;transform:rotate(-2.5deg);transform-origin:bottom right}
 .topic .vis.win img{height:400px;object-fit:cover;object-position:top left}
 .topic .vis.photo{height:430px;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(60,40,20,.5)}
-.topic .vis.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.topic .vis.photo img,.topic .vis.photo video{width:100%;height:100%;object-fit:cover;display:block}
 .topic .vis.code{background:#111;color:#e9e4dc;border-radius:18px;padding:28px 34px 90px;font-family:ui-monospace,Menlo,monospace;font-size:27px;line-height:1.7;box-shadow:0 30px 60px -30px rgba(0,0,0,.55)}
 .topic .vis.code b{color:#ff8a78;font-weight:700}.topic .vis.code i{color:#8a857c;font-style:normal}
 .topic .vis.icons{transform:none;bottom:110px;width:auto;display:flex;gap:26px;justify-content:flex-end}
@@ -248,10 +248,11 @@ body.all .strip,body.all .striptab{display:none}
 @media print{.pdftoast{display:none!important}}
 
 /* edge strips: the only click targets that change slides */
-.navz{position:fixed;top:0;bottom:0;width:9vw;z-index:40;cursor:pointer;display:grid;place-items:center;opacity:0;transition:opacity .2s}
+.navz{position:fixed;top:0;bottom:0;width:9vw;z-index:40;pointer-events:none;display:grid;place-items:center;opacity:0;transition:opacity .2s}
+body.nav-l,body.nav-r{cursor:pointer}
 .navz.l{left:0;background:linear-gradient(90deg,rgba(28,28,28,.10),transparent)}
 .navz.r{right:0;background:linear-gradient(270deg,rgba(28,28,28,.10),transparent)}
-.navz:hover{opacity:1}
+body.nav-l .navz.l,body.nav-r .navz.r{opacity:1}
 .navz svg{width:46px;height:46px;fill:none;stroke:var(--accent);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 body.all .navz,body.print .navz{display:none}
 body.strip-peek .navz,body.strip-pin .navz{bottom:var(--strip-h,150px)}
