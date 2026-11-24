@@ -45,9 +45,12 @@
  });
  document.getElementById('deck').addEventListener('click',function(e){
   var s=e.target.closest('.slide');if(document.body.classList.contains('all')&&s){document.body.classList.remove('all');go(slides.indexOf(s));return}
-  if(e.target.closest('a,button'))return; if(e.clientX>innerWidth/3)go(i+1);else go(i-1)});
+  /* only the edge strips change slides, so text can be selected and copied */});
+ ['l','r'].forEach(function(d){var z=document.createElement('div');z.className='navz '+d;z.setAttribute('aria-hidden','true');
+  z.innerHTML='<svg viewBox="0 0 24 24"><path d="'+(d==='l'?'M15 5l-7 7 7 7':'M9 5l7 7-7 7')+'"/></svg>';
+  z.addEventListener('click',function(e){e.stopPropagation();go(i+(d==='l'?-1:1))});document.body.appendChild(z)});
  var x0=null;addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
- addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40)go(i+(d<0?1:-1));x0=null});
+ addEventListener('touchend',function(e){if(x0===null)return;if(String(getSelection()).length){x0=null;return}var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40)go(i+(d<0?1:-1));x0=null});
 })();
 
 /* QR: any [data-qr] gets a QR code. data-qr="" = this deck's own link */
