@@ -165,9 +165,10 @@ p{margin:0}
 body:hover .help{opacity:1}
 /* overview (press G) / print-all (?all) */
 body.all{overflow:auto;background:#1c1c1c}
-body.all .stage{position:static;display:block;padding:24px}
-body.all .deck{transform:none;width:auto;height:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:20px}
-body.all .slide{position:relative;inset:auto;width:1280px;height:720px;opacity:1;visibility:visible;transform:scale(.3125);transform-origin:top left;margin-bottom:calc(720px * -0.6875);margin-right:calc(1280px * -0.6875);cursor:pointer;border-radius:4px}
+body.all .stage{position:static;display:block;padding:40px 32px 120px}
+body.all .deck{transform:none;width:auto;height:auto;display:grid;grid-template-columns:repeat(auto-fill,400px);justify-content:center;gap:28px}
+body.all .slide{position:relative;inset:auto;width:1280px;height:720px;opacity:1;visibility:visible;transform:scale(.3125);transform-origin:top left;margin-bottom:calc(720px * -0.6875);margin-right:calc(1280px * -0.6875);cursor:pointer;border-radius:10px;overflow:hidden;box-shadow:0 0 0 3px rgba(255,255,255,.06),0 20px 50px -20px rgba(0,0,0,.8)}
+body.all .slide:hover{box-shadow:0 0 0 6px var(--accent),0 20px 50px -20px rgba(0,0,0,.8)}
 body.all .hud,body.all .help{display:none}
 body.print .slide{transform:none;margin:0 0 24px}
 body.print .deck{grid-template-columns:1fr}
