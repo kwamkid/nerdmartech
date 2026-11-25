@@ -32,9 +32,9 @@
   var bar=document.createElement('div');bar.className='bar';strip.insertBefore(bar,row);
   ['hubbtn','pdfbtn'].forEach(function(c){var el=document.querySelector('body > .'+c);if(el){el.addEventListener('click',function(e){e.stopPropagation()});bar.appendChild(el)}});
   document.body.appendChild(strip);document.body.appendChild(tab);
-  function pin(v){document.body.classList.toggle('strip-pin',v===undefined?!document.body.classList.contains('strip-pin'):v)}
+  function pin(v){var c=document.body.classList,on=v===undefined?!c.contains('strip-pin'):v;c.toggle('strip-pin',on);if(!on)c.remove('strip-peek')}
   tab.addEventListener('click',function(e){e.stopPropagation();pin()});
-  addEventListener('mousemove',function(e){var on=document.body.classList.contains('strip-peek');document.body.classList.toggle('strip-peek',e.clientY>innerHeight-(on?strip.offsetHeight+20:130))});
+  var lastTouch=0;addEventListener('touchstart',function(){lastTouch=Date.now()},{passive:true});addEventListener('mousemove',function(e){if(Date.now()-lastTouch<1000)return;var on=document.body.classList.contains('strip-peek');document.body.classList.toggle('strip-peek',e.clientY>innerHeight-(on?strip.offsetHeight+20:130))});
   addEventListener('keydown',function(e){if((e.key==='t'||e.key==='T')&&!document.body.classList.contains('all'))pin()});
   window.__strip=function(k){thumbs.forEach(function(b,j){b.classList.toggle('cur',j===k)});
    var b=thumbs[k];if(b)row.scrollTo({left:b.offsetLeft-row.clientWidth/2+b.clientWidth/2,behavior:'smooth'})};

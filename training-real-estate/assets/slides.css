@@ -278,3 +278,7 @@ body.all .slide:hover .tn{background:var(--accent)}
 .strip .tn{display:none!important}
 body.print .slide .tn{display:none!important}
 @media print{.slide .tn{display:none!important}}
+/* phone: keep the "all slides" tab above the strip bar (it collided with the PDF button) and hide keyboard hints on touch */
+@media (max-width:760px){body.strip-peek .striptab,body.strip-pin .striptab{bottom:156px}.help{display:none!important}}
+@media (hover:none){.help{display:none!important}}
+@media (max-width:760px){.strip .bar{gap:8px}.strip .bar .hubbtn,.strip .bar .pdfbtn{font-size:13px;padding:7px 10px}}
