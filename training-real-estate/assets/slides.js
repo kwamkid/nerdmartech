@@ -2,7 +2,15 @@
  var slides=[].slice.call(document.querySelectorAll('.slide')),n=slides.length,i=0;
  slides.forEach(function(s,k){var p=s.querySelector('.pg');if(p)p.textContent=String(k+1).padStart(2,'0')+' / '+String(n).padStart(2,'0')});
  function fit(){var s=Math.min(innerWidth/1280,innerHeight/720);document.documentElement.style.setProperty('--s',s)}
- function go(k){i=Math.max(0,Math.min(n-1,k));slides.forEach(function(s,j){s.classList.toggle('on',j===i)});
+ /* click-to-reveal: elements with data-step="1..N" appear one by one before the slide changes */
+ function stepsOf(s){return [].slice.call(s.querySelectorAll('[data-step]'))}
+ function maxStep(s){var m=0;stepsOf(s).forEach(function(e){m=Math.max(m,+e.getAttribute('data-step')||0)});return m}
+ function setShown(s,k){s._st=k;stepsOf(s).forEach(function(e){var v=(+e.getAttribute('data-step')||0)<=k,was=!e.classList.contains('st-hide');
+  e.classList.toggle('st-hide',!v);if(v&&!was){e.classList.remove('st-in');void e.getBoundingClientRect();e.classList.add('st-in')}})}
+ function next(){var s=slides[i];if((s._st||0)<maxStep(s))setShown(s,(s._st||0)+1);else go(i+1)}
+ function prev(){var s=slides[i];if((s._st||0)>0)setShown(s,s._st-1);else go(i-1,true)}
+ function go(k,atEnd){i=Math.max(0,Math.min(n-1,k));slides.forEach(function(s,j){s.classList.toggle('on',j===i)});
+  setShown(slides[i],atEnd?maxStep(slides[i]):0);
   document.getElementById('bar').style.width=((i+1)/n*100)+'%';try{history.replaceState(null,'','#'+(i+1))}catch(e){}
   if(window.__strip)window.__strip(i)}
  /* overview grid (G): fill the full width, number every slide */
@@ -44,8 +52,8 @@
  if(/[?&]print\b/.test(location.search)){document.body.classList.add('all','print')}
  addEventListener('keydown',function(e){
   if(document.body.classList.contains('all')&&e.key!=='g'&&e.key!=='G'&&e.key!=='Escape')return;
-  if(['ArrowRight','PageDown',' ','Enter'].indexOf(e.key)>-1){e.preventDefault();go(i+1)}
-  else if(['ArrowLeft','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();go(i-1)}
+  if(['ArrowRight','PageDown',' ','Enter'].indexOf(e.key)>-1){e.preventDefault();next()}
+  else if(['ArrowLeft','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();prev()}
   else if(e.key==='Home')go(0);else if(e.key==='End')go(n-1);
   else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(function(){});else document.exitFullscreen()}
   else if(e.key==='g'||e.key==='G'||e.key==='Escape'){document.body.classList.toggle('all',e.key!=='Escape'?undefined:false)}
@@ -61,9 +69,9 @@
  function edge(e){if(document.body.classList.contains('all'))return 0;var w=innerWidth*0.09;
   if(e.target.closest&&e.target.closest(LIVE))return 0;return e.clientX<w?-1:e.clientX>innerWidth-w?1:0}
  addEventListener('mousemove',function(e){var d=edge(e);document.body.classList.toggle('nav-l',d===-1);document.body.classList.toggle('nav-r',d===1)});
- addEventListener('click',function(e){var d=edge(e);if(!d||String(getSelection()).length)return;go(i+d)});
+ addEventListener('click',function(e){var d=edge(e);if(!d||String(getSelection()).length)return;if(d>0)next();else prev()});
  var x0=null;addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
- addEventListener('touchend',function(e){if(x0===null)return;if(String(getSelection()).length){x0=null;return}var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40)go(i+(d<0?1:-1));x0=null});
+ addEventListener('touchend',function(e){if(x0===null)return;if(String(getSelection()).length){x0=null;return}var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40){if(d<0)next();else prev()}x0=null});
 })();
 
 /* QR: any [data-qr] gets a QR code. data-qr="" = this deck's own link */

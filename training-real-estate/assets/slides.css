@@ -286,3 +286,11 @@ body.print .slide .tn{display:none!important}
 /* list icons: check = green, cross = red (owner 26 Nov) */
 .slide li svg:has(use[href="#i-pass"]){fill:#2e9e5b}
 .slide li svg:has(use[href="#i-fail"]){fill:#d25240}
+
+/* click-to-reveal steps ([data-step]) */
+.slide .st-hide{visibility:hidden}
+.slide .st-in{animation:stIn .45s ease-out both!important;animation-delay:0s!important}
+@keyframes stIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+body.all .slide .st-hide,body.print .slide .st-hide{visibility:visible}
+@media print{.slide .st-hide{visibility:visible!important}.slide .st-in{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.slide .st-in{animation:none!important}}
