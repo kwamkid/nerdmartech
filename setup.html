@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ติดตั้งเครื่องก่อนเรียน คำสั่งเดียวจบ — Nerd MarTech</title>
+<meta name="description" content="คัดลอกคำสั่ง 1 บรรทัด วางใน Terminal (Mac) หรือ PowerShell (Windows) ติดตั้งเครื่องมือทั้งหมดของคอร์ส พร้อมตั้งค่า PATH ให้เอง">
+<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://nerdmartech.com/setup.html">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=20260925g">
+<link rel="icon" href="favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png?v=2">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png?v=2">
+<style>
+.os-pick{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin:var(--s5) 0}
+.os-pick .card{padding:var(--s5)}
+.os-pick .card.me{outline:3px solid #d25240;outline-offset:2px}
+.os-pick h2{margin-top:0}
+.os-pick .you{display:none;font-size:var(--fs-sm);background:#d25240;color:#fff;padding:2px 10px;border-radius:var(--px);margin-left:8px;vertical-align:middle}
+.os-pick .card.me .you{display:inline-block}
+@media (max-width:760px){.os-pick{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-page="setup.html">
+<div class="wrap page-hero"><div class="hero">
+  <h1>ติดตั้งเครื่องก่อนเรียน คำสั่งเดียวจบ</h1>
+  <p class="lead">คัดลอกคำสั่ง 1 บรรทัด วางแล้วกด Enter เครื่องจะติดตั้งทุกอย่างของคอร์สให้เอง พร้อมตั้งค่า PATH ให้ใช้ได้ทันที ทำที่บ้านก่อนวันเรียน ใช้เวลาประมาณ 10–30 นาที</p>
+</div></div>
+
+<main id="content">
+<section id="run" data-toc="คำสั่งติดตั้ง">
+  <div class="os-pick">
+    <div class="card" id="mac">
+      <h2>Mac<span class="you">เครื่องของคุณ</span></h2>
+      <ol class="steps">
+        <li><b>เปิด Terminal</b><span>กด Cmd + Space พิมพ์ Terminal แล้วกด Enter</span></li>
+        <li><b>กด Copy แล้ววางใน Terminal กด Enter</b><span>
+          <div class="prompt"><button class="copy">Copy</button><pre>curl -fsSL https://nerdmartech.com/setup/mac.sh | bash</pre></div></span></li>
+        <li><b>ใส่รหัสผ่านเครื่อง 1 ครั้ง</b><span>รหัสเดียวกับที่ใช้ปลดล็อกเครื่อง ตอนพิมพ์จะไม่เห็นตัวอักษร เป็นเรื่องปกติ พิมพ์ให้ครบแล้วกด Enter</span></li>
+        <li><b>รอจนขึ้น ✅ ครบทุกข้อ</b><span>แคปหน้าจอส่งในกลุ่ม LINE</span></li>
+      </ol>
+    </div>
+    <div class="card" id="win">
+      <h2>Windows<span class="you">เครื่องของคุณ</span></h2>
+      <ol class="steps">
+        <li><b>เปิด PowerShell</b><span>กดปุ่ม Windows พิมพ์ PowerShell แล้วกด Enter (เปิดแบบปกติ ไม่ต้อง Run as administrator)</span></li>
+        <li><b>กด Copy แล้ววางใน PowerShell กด Enter</b><span>
+          <div class="prompt"><button class="copy">Copy</button><pre>irm https://nerdmartech.com/setup/win.ps1 | iex</pre></div></span></li>
+        <li><b>มีหน้าต่างถามว่า "อนุญาตให้แอปนี้เปลี่ยนแปลงอุปกรณ์ไหม" กด Yes</b><span>จะเด้งขึ้นหลายครั้ง เพราะติดตั้งหลายโปรแกรม</span></li>
+        <li><b>รอจนขึ้น ALL DONE สีเขียว</b><span>แคปหน้าจอส่งในกลุ่ม LINE</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="callout note"><b>หลังติดตั้งเสร็จ</b> ปิด VS Code ให้หมดแล้วเปิดใหม่ (Mac กด Cmd + Q) โปรแกรมที่เปิดค้างไว้ก่อนติดตั้งจะยังหาเครื่องมือใหม่ไม่เจอ</div>
+</section>
+
+<section id="what" data-toc="ติดตั้งอะไรบ้าง">
+  <h2>ติดตั้งอะไรบ้าง</h2>
+  <div class="tablewrap fit"><table>
+    <thead><tr><th>โปรแกรม</th><th>ใช้ทำอะไรในคอร์ส</th></tr></thead>
+    <tbody>
+      <tr><td>Git · Node.js</td><td>ให้เว็บและระบบที่เราสร้างรันในเครื่องได้</td></tr>
+      <tr><td>VS Code + ส่วนขยาย Claude Code</td><td>ที่ทำงานหลัก คุยกับ Claude และเห็นไฟล์ทั้งหมด</td></tr>
+      <tr><td>Claude Code · Claude Desktop</td><td>ผู้ช่วย AI ที่ลงมือทำงานในเครื่องให้เรา</td></tr>
+      <tr><td>GitHub CLI · Vercel CLI</td><td>เก็บงานขึ้น GitHub และเอาเว็บขึ้นออนไลน์</td></tr>
+      <tr><td>FFmpeg</td><td>ให้ Claude ตัดต่อวิดีโอ</td></tr>
+      <tr><td>Class Kit</td><td>คำสั่ง /memo · /todo ที่ใช้ทั้งคอร์ส</td></tr>
+      <tr><td>MCP Vercel · Supabase · Meta ads</td><td>ให้ Claude เข้าไปทำงานในระบบเหล่านี้แทนเรา (ล็อกอินในห้องเรียน)</td></tr>
+    </tbody>
+  </table></div>
+  <p>ตัวไหนมีอยู่แล้ว สคริปต์จะข้ามให้ รันซ้ำกี่รอบก็ได้</p>
+</section>
+
+<section id="fix" data-toc="ติดปัญหา">
+  <h2>ติดปัญหา</h2>
+  <ol class="steps compact">
+    <li><b>ขึ้น ❌ หรือ [X] บางข้อ</b><span>ปิดหน้าต่างแล้วเปิดใหม่ วางคำสั่งเดิมอีกรอบ ตัวที่ลงแล้วจะข้ามให้</span></li>
+    <li><b>ยังไม่ผ่าน</b><span>ส่งแคปหน้าจอ + ไฟล์ nerdmartech-setup.log (อยู่ในโฟลเดอร์ผู้ใช้ของเครื่อง) ในกลุ่ม LINE</span></li>
+    <li><b>Mac บอกว่ารหัสผ่านไม่ถูก</b><span>บัญชีที่ใช้อาจไม่ใช่ผู้ดูแลเครื่อง (เครื่องบริษัท) ให้ฝ่าย IT ช่วย หรือใช้เครื่องส่วนตัว</span></li>
+    <li><b>Windows บอกว่าไม่มี winget</b><span>สคริปต์จะเปิด Microsoft Store ให้ กด Update/Install "App Installer" แล้วรันคำสั่งอีกรอบ</span></li>
+  </ol>
+</section>
+</main>
+<aside class="side-right"></aside>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  var ua = navigator.userAgent || '';
+  var id = /Windows/i.test(ua) ? 'win' : (/Mac/i.test(ua) ? 'mac' : '');
+  if (id) document.getElementById(id).classList.add('me');
+})();
+</script>
+</body>
+</html>
